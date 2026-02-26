@@ -419,11 +419,12 @@ async def execute(server, dynprompt, caches, current_item, extra_data, executed,
     inputs = dynprompt.get_node(unique_id)['inputs']
     class_type = dynprompt.get_node(unique_id)['class_type']
     class_def = nodes.NODE_CLASS_MAPPINGS[class_type]
+    merge = inputs.get('accumulate') is True
     cached = await caches.outputs.get(unique_id)
     if cached is not None:
         if server.client_id is not None:
             cached_ui = cached.ui or {}
-            server.send_sync("executed", { "node": unique_id, "display_node": display_node_id, "output": cached_ui.get("output",None), "prompt_id": prompt_id }, server.client_id)
+            server.send_sync("executed", { "node": unique_id, "display_node": display_node_id, "output": cached_ui.get("output",None), "prompt_id": prompt_id, "merge": merge }, server.client_id)
             if cached.ui is not None:
                 ui_outputs[unique_id] = cached.ui
         get_progress_state().finish_progress(unique_id)
@@ -550,7 +551,7 @@ async def execute(server, dynprompt, caches, current_item, extra_data, executed,
                 "output": output_ui
             }
             if server.client_id is not None:
-                server.send_sync("executed", { "node": unique_id, "display_node": display_node_id, "output": output_ui, "prompt_id": prompt_id }, server.client_id)
+                server.send_sync("executed", { "node": unique_id, "display_node": display_node_id, "output": output_ui, "prompt_id": prompt_id, "merge": merge }, server.client_id)
         if has_subgraph:
             cached_outputs = []
             new_node_ids = []
