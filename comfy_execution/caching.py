@@ -230,8 +230,7 @@ class BasicCache:
         """Notify external providers of cache store (fire-and-forget)."""
         from comfy_execution.cache_provider import (
             _has_cache_providers, _get_cache_providers,
-            CacheContext, CacheValue,
-            _serialize_cache_key, _contains_nan, _logger
+            CacheValue, _contains_nan, _logger
         )
 
         # Fast exit conditions
@@ -269,8 +268,7 @@ class BasicCache:
         """Check external providers for cached result."""
         from comfy_execution.cache_provider import (
             _has_cache_providers, _get_cache_providers,
-            CacheContext, CacheValue,
-            _contains_nan, _logger
+            CacheValue, _contains_nan, _logger
         )
 
         if self._is_subcache:
