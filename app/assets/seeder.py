@@ -217,9 +217,9 @@ class _AssetSeeder:
         Returns:
             True if started immediately, False if queued for later
         """
-        if self.start_enrich(roots=roots, compute_hashes=compute_hashes):
-            return True
         with self._lock:
+            if self.start_enrich(roots=roots, compute_hashes=compute_hashes):
+                return True
             if self._pending_enrich is not None:
                 existing_roots = set(self._pending_enrich["roots"])
                 existing_roots.update(roots)

@@ -11,6 +11,7 @@ from app.assets.database.queries import (
     add_tags_to_reference,
     count_active_siblings,
     create_stub_asset,
+    ensure_tags_exist,
     fetch_reference_and_asset,
     get_asset_by_hash,
     get_reference_by_file_path,
@@ -222,6 +223,8 @@ def ingest_existing_file(
             "mime_type": mime_type,
             "job_id": job_id,
         }
+        if tags:
+            ensure_tags_exist(session, tags)
         result = batch_insert_seed_assets(session, [spec], owner_id=owner_id)
         session.commit()
         return result.won_paths > 0
