@@ -1,0 +1,97 @@
+{
+  "id": "openrouter-workflow",
+  "revision": 0,
+  "last_node_id": 6,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [50, 50],
+      "size": [400, 150],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": ["🌐 OpenRouter API Workflow\n\nThis workflow uses external API instead of local models.\n\nBenefits:\n✅ Faster generation\n✅ Access to multiple models\n✅ No local GPU required\n✅ Better quality options\n\nAPI Key Required in OpenRouter Node"]
+    },
+    {
+      "id": 2,
+      "type": "OpenRouter",
+      "pos": [500, 50],
+      "size": [350, 200],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {"name": "api_key", "type": "STRING", "widget": {"name": "api_key"}, "link": null},
+        {"name": "model", "type": "COMBO", "widget": {"name": "model"}, "link": null},
+        {"name": "prompt", "type": "STRING", "widget": {"name": "prompt"}, "link": null},
+        {"name": "width", "type": "INT", "widget": {"name": "width"}, "link": null},
+        {"name": "height", "type": "INT", "widget": {"name": "height"}, "link": null}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "slot_index": 0, "links": [3]}
+      ],
+      "properties": {},
+      "widgets_values": [
+        "your-openrouter-api-key",
+        "openai/dall-e-3",
+        "a futuristic city with flying cars, neon lights, cyberpunk style",
+        1024,
+        1024
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ImageResize",
+      "pos": [900, 50],
+      "size": [210, 100],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 3},
+        {"name": "width", "type": "INT", "widget": {"name": "width"}, "link": null},
+        {"name": "height", "type": "INT", "widget": {"name": "height"}, "link": null},
+        {"name": "method", "type": "COMBO", "widget": {"name": "method"}, "link": null}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "slot_index": 0, "links": [4]}
+      ],
+      "properties": {},
+      "widgets_values": [512, 512, "lanczos"]
+    },
+    {
+      "id": 4,
+      "type": "SaveImage",
+      "pos": [1150, 50],
+      "size": [210, 58],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 4},
+        {"name": "filename_prefix", "type": "STRING", "widget": {"name": "filename_prefix"}, "link": null}
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": ["OpenRouter_Generated"]
+    }
+  ],
+  "links": [
+    [3, 2, 0, 3, 0, "IMAGE"],
+    [4, 3, 0, 4, 0, "IMAGE"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8264462809917358,
+      "offset": [330.98378729070987, 203.11580802311718]
+    }
+  },
+  "version": 0.4
+}
