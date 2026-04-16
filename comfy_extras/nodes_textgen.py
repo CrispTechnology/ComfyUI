@@ -35,7 +35,7 @@ class TextGenerate(io.ComfyNode):
                 io.Int.Input("max_length", default=256, min=1, max=2048),
                 io.DynamicCombo.Input("sampling_mode", options=sampling_options, display_name="Sampling Mode"),
                 io.Boolean.Input("thinking", optional=True, default=False, tooltip="Operate in thinking mode if the model supports it."),
-                io.Boolean.Input("use_default_template", optional=True, default=True, tooltip="Use the built in system prompt/template if the mode has one.", advanced=True),
+                io.Boolean.Input("use_default_template", optional=True, default=True, tooltip="Use the built in system prompt/template if the model has one.", advanced=True),
             ],
             outputs=[
                 io.String.Output(display_name="generated_text"),
